@@ -4,7 +4,7 @@ setup() {
   export bin_path
   bin_path=$(readlink -e "$BATS_TEST_DIRNAME/../bin")
   export cmd="download"
-  export test_version="v1.2.0"
+  export test_version="1.2.0"
 
   export temp_download_path="/tmp/bats_$RANDOM"
   mkdir -p "$temp_download_path"
