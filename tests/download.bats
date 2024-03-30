@@ -29,11 +29,14 @@ teardown() {
   # check if temp download path exists
   [[ -d "$temp_download_path" ]]
 
-  local files
-  files=$(ls -A "$temp_download_path")
-
   # temp download path should include install script
-  [[ "$files" =~ "install.sh" ]]
+  [[ -f "$temp_download_path/install.sh" ]]
+
+  # temp download path should NOT include .git dir
+  # we don't need it, and asdf has trouble deleting it
+  # because it doesn't use the --force (-f) parameter
+  # with `rm`
+  [[ ! -d "$temp_download_path/.git" ]]
 }
 
 @test 'success if ASDF params are set' {
@@ -46,11 +49,14 @@ teardown() {
   # check if temp download path exists
   [[ -d "$temp_download_path" ]]
 
-  local files
-  files=$(ls -A "$temp_download_path")
-
   # temp download path should include install script
-  [[ "$files" =~ "install.sh" ]]
+  [[ -f "$temp_download_path/install.sh" ]]
+
+  # temp download path should NOT include .git dir
+  # we don't need it, and asdf has trouble deleting it
+  # because it doesn't use the --force (-f) parameter
+  # with `rm`
+  [[ ! -d "$temp_download_path/.git" ]]
 
   unset ASDF_DOWNLOAD_PATH
   unset ASDF_INSTALL_VERSION
