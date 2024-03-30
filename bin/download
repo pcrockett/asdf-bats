@@ -21,6 +21,10 @@ download_bats() {
     echo "* Downloading Bats-core(version:$version) to $download_path"
     git clone --depth=1 -b "v$version" "$repo_url" "$download_path" >/dev/null
 
+    # remove `.git` dir, because (a) we don't need it, and (b) asdf has a hard time
+    # removing it (lacks the `-f` parameter with the `rm` command)
+    rm -rf "$download_path/.git"
+
     echo "Download successful."
     return 0
   ) || (
